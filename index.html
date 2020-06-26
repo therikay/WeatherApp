@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    
+    <script
+      src="https://kit.fontawesome.com/3dd143100d.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="styles.css">
+     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container" >
+      <div class="currentConditions">
+        <div class="row">
+          <div class="col-6">
+            <i id = "weather-icon-now" class="fas fa-sun"></i>
+            <h2 id="city">
+        Cardiff
+      </h2>    
+       <p> 
+        <span id="current-date"> 
+        May 27th 2020
+        </span>  |
+        <span id="current-time"> 
+        15:00
+        </span>
+      </p>   
+          </div>
+          <div class="col-6">
+            <h1 id = "current-temp">
+             25 °C
+            </h1>
+
+           <p class= "hi-low-temp-now">
+            <span id ="today-high"> High 27 °C </span> |
+            <span id="today-low"> Low 15°C </span><br>
+          <span id = "weather-description"> Windy</span> 
+
+          </p> 
+          
+          </div>
+          </div>
+        
+        
+        <form>
+          <div class="form-group">
+            <input id="city-input" type="text" placeholder="Choose city" autofocus="on"/>
+            <button id = "search-city-button" type="submit">Search</button></form>
+            <button id = "geolocation">
+              My Location 
+            </button> 
+            <button id ="fahrenheit-button"> °F </button>
+          </div>
+
+         
+      </div>
+        </form> 
+      <div class="forecast">
+        <div class="col-12">
+          Weather For the next 5 days
+          <ul class="list-unstyled">
+  <li class="media">
+    <i class="fas fa-sun"></i>
+    <div class="media-body">
+      <h5 class="mt-0 mb-1">Tomorrow </h5>
+      <div>
+        <div class="temperature"> High 25 °C      
+        | 
+        
+        Low 13 °C 
+        
+      </div>
+        Humidity: 78%
+        | Wind: 4m/s
+    </div>
+  </li>
+  <li class="media my-4">
+    <div class="weatherIcon">
+    <i class="fas fa-sun"></i>
+    </div>
+    <div class="media-body">
+      <h5 class="mt-0 mb-1">After tomorrow </h5>
+      <div>
+        <div class="temperature"> High 25 °C      
+        | 
+        
+        Low 13 °C 
+        
+      </div>
+        Humidity: 78%
+        | Wind: 4m/s
+    </div>
+  </li>
+  <li class="media">
+    <i class="fas fa-sun"></i>
+    <div class="media-body">
+      <h5 class="mt-0 mb-1"> Wednesday </h5>
+     <div>
+        <div class="temperature"> High 25 °C      
+        | 
+        
+        Low 13 °C 
+        
+      </div>
+        Humidity: 78%
+        | Wind: 4m/s
+    </div>
+    <br>
+  </li>
+  <li class="media">
+    <i class="fas fa-sun"></i>
+    <div class="media-body">
+      <h5 class="mt-0 mb-1"> Thursday </h5>
+     <div>
+        <div class="temperature"> High 25 °C      
+        | 
+        
+        Low 13 °C 
+        
+      </div>
+        Humidity: 78%
+        | Wind: 4m/s
+    </div>
+  </li>
+  
+  
+</ul>
+        </div>
+        <div class="col-4">
+        
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="signature"> 
+    coded by Theri Reichlin
+
+  </div>
+ <script src="script.js"></script>
+  </body>
+</html>

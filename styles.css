@@ -1,0 +1,55 @@
+.container {
+  border: green 2px solid;
+  display: block;
+  background-image: linear-gradient(to right, #92fe9d 0%, #00c9ff 100%);
+  border-radius: 35px;
+  position: relative;
+  box-sizing: border-box;
+  max-width: 450px;
+}
+
+h1 {
+  text-transform: capitalize;
+  font-size: 110px;
+  padding: 30px 30px;
+}
+
+#current-temp{
+  font-size: 60px;
+  padding: 20px 20px 20px 0px
+ 
+
+}
+
+#weather-icon-now {
+  font-weight: 700;
+  font-size: 65px;
+  padding: 30px 25px 10px 25px;
+}
+
+.fas,
+fa {
+  font-size: 45px;
+  padding: 20px 10px;                                                                                                                                                                                                                                                                                                                                                  1  
+}
+.signature {
+  font-family: monospace;
+  text-align: center;
+}
+
+#unit-convert {
+  font-size: larger;
+  text-align: center;
+  margin: 0 auto;
+  color: red;
+  padding-left: 20px;
+  font-weight: bold;
+}
+
+.hi-low-temp-now{
+  padding: 0 0 0 0;
+}
+
+#weather-description{
+  text:capitalize;
+}
