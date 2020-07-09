@@ -74,18 +74,24 @@ let button = document.querySelector(`#geolocation`);
 button.addEventListener(`click`, fetchLocation);
 
 function getWeather(response) {
+  console.log(response.data);
   let showTemp = document.querySelector(`#current-temp`);
   let currentTemp = Math.round(response.data.main.temp);
   let tempMax = document.querySelector(`#today-high`);
   let tempMin = document.querySelector(`#today-low`);
   let feelsLike = document.querySelector(`#weather-description`);
+  let iconElement = document.querySelector(`#weather-icon-now`);
 
   showTemp.innerHTML = `${currentTemp} °C`;
   city.innerHTML = `${response.data.name}`;
   tempMax.innerHTML = `High ${Math.round(response.data.main.temp_max)} °C`;
   tempMin.innerHTML = ` Low ${Math.round(response.data.main.temp_min)} °C`;
   feelsLike.innerHTML = `${response.data.weather[0].description}`;
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
 }
 
-let fahTemp = document.querySelector(`#fahrenheit - button`);
-fahTemp.addEventListener(`click, convertToFah`);
+//let fahTemp = document.querySelector(`#fahrenheit - button`);
+//fahTemp.addEventListener(`click, convertToFah`);

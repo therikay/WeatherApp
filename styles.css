@@ -51,5 +51,5 @@ fa {
 }
 
 #weather-description{
-  text:capitalize;
+  text-decoration:capitalize;
 }
