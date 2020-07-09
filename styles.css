@@ -10,13 +10,13 @@
 
 h1 {
   text-transform: capitalize;
-  font-size: 110px;
+  font-size: 75px;
   padding: 30px 30px;
 }
 
 #current-temp{
-  font-size: 60px;
-  padding: 20px 20px 20px 0px
+  font-size: 70px;
+  padding: 20px 20px 0px 0px;
  
 
 }
@@ -47,5 +47,9 @@ fa {
 }
 
 .hi-low-temp-now{
- padding: 45px 0 0 0;
+ padding: 30px 0 0 0;
+}
+
+h1 .units{
+  font-size: 25px;
 }

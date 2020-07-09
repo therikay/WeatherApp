@@ -74,7 +74,6 @@ let button = document.querySelector(`#geolocation`);
 button.addEventListener(`click`, fetchLocation);
 
 function getWeather(response) {
-  console.log(response.data);
   let showTemp = document.querySelector(`#current-temp`);
   let currentTemp = Math.round(response.data.main.temp);
   let tempMax = document.querySelector(`#today-high`);
@@ -93,5 +92,10 @@ function getWeather(response) {
   );
 }
 
-let fahTemp = document.querySelector(`#fahrenheit-button`);
+function convertToFahrenheit(event) {
+  event.preventDefault();
+  alert("hello!");
+}
+
+let fahTemp = document.querySelector(`#fahrenheit`);
 fahTemp.addEventListener(`click, convertToFah`);
