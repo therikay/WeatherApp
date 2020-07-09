@@ -89,9 +89,9 @@ function getWeather(response) {
   feelsLike.innerHTML = `${response.data.weather[0].description}`;
   iconElement.setAttribute(
     "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
 }
 
-//let fahTemp = document.querySelector(`#fahrenheit - button`);
-//fahTemp.addEventListener(`click, convertToFah`);
+let fahTemp = document.querySelector(`#fahrenheit-button`);
+fahTemp.addEventListener(`click, convertToFah`);

@@ -47,9 +47,5 @@ fa {
 }
 
 .hi-low-temp-now{
-  padding: 0 0 0 0;
-}
-
-#weather-description{
-  text-decoration:capitalize;
+ padding: 45px 0 0 0;
 }
