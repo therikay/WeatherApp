@@ -33,6 +33,9 @@ let month = months[now.getMonth()];
 let monthDay = now.getDate();
 let nowDate = document.querySelector("#current-date");
 let hour = now.getHours();
+if (hour < 10) {
+  hour = `0${hour}`;
+}
 let minute = now.getMinutes();
 if (minute < 10) {
   minute = `0${minute} `;
@@ -46,6 +49,9 @@ nowDate.innerHTML = `${formatDate}`;
 function formatHours(timestamp) {
   let date = new Date(timestamp);
   let hour = date.getHours();
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
   let minute = date.getMinutes();
   if (minute < 10) {
     minute = `0${minute} `;
@@ -86,7 +92,7 @@ function fetchLocation() {
 
 let button = document.querySelector(`#geolocation`);
 button.addEventListener(`click`, fetchLocation);
-
+//feed timestamp to current weather with location
 function getWeather(response) {
   let showTemp = document.querySelector(`#current-temp`);
   let currentTemp = Math.round(response.data.main.temp);
@@ -133,32 +139,7 @@ function getForecast(response) {
       </div>
   </li>
     `;
-
-  forecast = response.data.list[1];
-  forecastElement.innerHTML =
-    forecastElement.innerHTML +
-    `
-  <li class="media" id="forecast-element">
-    <img src = "https://openweathermap.org/img/wn/${
-      forecast.weather[1].icon
-    }@2x.png" alt = "#" ></i>
-    <div class="media-body">
-      <h5 class="mt-0 mb-1">
-     ${formatHours(response.data.list[1].dt * 1000)}
-      </h5>
-      <div>
-        <div class="temperature"> High  <span id="tomorrow-hi">${Math.round(
-          forecast.main.temp_max
-        )} °C </span> | Low <span id="tomorrow-lo" >${Math.round(
-      forecast.main.temp_min
-    )} °C</span>
-        </div>
-               Humidity: ${forecast.main.humidity} % | Wind: ${Math.round(
-      response.data.list[1].wind.speed
-    )} m/s
-      </div>
-  </li>
-    `;
+  //replicate for array item 1-4 and feed
 }
 
 // end of forecast
