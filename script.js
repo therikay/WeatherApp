@@ -29,18 +29,21 @@ let months = [
   `December`,
 ];
 
-let month = months[now.getMonth()];
-let monthDay = now.getDate();
-let nowDate = document.querySelector("#current-date");
-let hour = now.getHours();
-let minute = now.getMinutes();
-let nowTime = document.querySelector("#current-time");
-let formatDate = `${weekDay}, ${month} ${monthDay}`;
-let formatTime = `${hour}:${minute}`;
-nowTime.innerHTML = `${formatTime}`;
-nowDate.innerHTML = `${formatDate}`;
-
-//tomorrow forecast
+function formatTime(timestamp) {
+  let month = months[now.getMonth()];
+  let monthDay = now.getDate();
+  let nowDate = document.querySelector("#current-date");
+  let hour = now.getHours();
+  let minute = now.getMinutes();
+  if (minute < 10) {
+    "0" + minute;
+  }
+  let nowTime = document.querySelector("#current-time");
+  let formatDate = `${weekDay}, ${month} ${monthDay}`;
+  let formatHours = `${hour}:${minute}`;
+  nowTime.innerHTML = `${formatHours}`;
+  nowDate.innerHTML = `${formatDate}`;
+}
 
 // add a required field function here
 function searchCity(event) {
@@ -48,13 +51,11 @@ function searchCity(event) {
   let city = document.querySelector("#city-input");
   let apiKey = `1544e67f9b685a7d927f11b2e914bf96`;
   let cityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${apiKey}&units=metric`;
-
+  let forecastCityUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city.value}&appid=${apiKey}&units=metric`;
   let displayCity = document.querySelector(`#city`);
   displayCity.innerHTML = `${city.value}`;
   axios.get(cityUrl).then(getWeather);
-
-  let cityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${apiKey}&units=metric`;
-  axios.get(cityURL).then(getForecast);
+  axios.get(forecastCityUrl).then(getForecast);
 }
 
 let searchCityButton = document.querySelector(".form-group");
@@ -65,9 +66,9 @@ function locateMe(position) {
   let lon = position.coords.longitude;
   let apiKey = `1544e67f9b685a7d927f11b2e914bf96`;
   let geoUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
-
+  let forecastGeoUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
   axios.get(geoUrl).then(getWeather);
-  axios.get(geoUrl).then(getForecast);
+  axios.get(forecastGeoUrl).then(getForecast);
 }
 
 function fetchLocation() {
@@ -81,15 +82,15 @@ button.addEventListener(`click`, fetchLocation);
 function getWeather(response) {
   let showTemp = document.querySelector(`#current-temp`);
   let currentTemp = Math.round(response.data.main.temp);
-  let tempMax = document.querySelector(`#today-high`);
-  let tempMin = document.querySelector(`#today-low`);
+  let tempMax = document.querySelector(`#current-high`);
+  let tempMin = document.querySelector(`#current-low`);
   let feelsLike = document.querySelector(`#weather-description`);
   let iconElement = document.querySelector(`#weather-icon-now`);
 
   showTemp.innerHTML = `${currentTemp}`;
   city.innerHTML = `${response.data.name}`;
-  tempMax.innerHTML = `High ${Math.round(response.data.main.temp_max)} °C`;
-  tempMin.innerHTML = ` Low ${Math.round(response.data.main.temp_min)} °C`;
+  tempMax.innerHTML = `${Math.round(response.data.main.temp_max)}`;
+  tempMin.innerHTML = `${Math.round(response.data.main.temp_min)}`;
   feelsLike.innerHTML = `${response.data.weather[0].description}`;
   iconElement.setAttribute(
     "src",
@@ -100,22 +101,31 @@ function getWeather(response) {
 //forecast
 
 function getForecast(response) {
-  let showTemp = document.querySelector(`#current-temp`);
-  let currentTemp = Math.round(response.data.main.temp);
-  let tempMax = document.querySelector(`#today-high`);
-  let tempMin = document.querySelector(`#today-low`);
-  let feelsLike = document.querySelector(`#weather-description`);
-  let iconElement = document.querySelector(`#weather-icon-now`);
-
-  showTemp.innerHTML = `${currentTemp}`;
-  city.innerHTML = `${response.data.name}`;
-  tempMax.innerHTML = `High ${Math.round(response.data.main.temp_max)} °C`;
-  tempMin.innerHTML = ` Low ${Math.round(response.data.main.temp_min)} °C`;
-  feelsLike.innerHTML = `${response.data.weather[0].description}`;
-  iconElement.setAttribute(
-    "src",
-    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-  );
+  let forecastElement = document.querySelector(`#forecast`);
+  console.log(response);
+  let forecast = response.data.list[0];
+  forecastElement.innerHTML = `
+  <li class="media" id="forecast-element">
+    <img src = "https://openweathermap.org/img/wn/${
+      forecast.weather[0].icon
+    }@2x.png" alt = "#" ></i>
+    <div class="media-body">
+      <h5 class="mt-0 mb-1">
+      ${formatTime(forecast.dt * 1000)}
+      </h5>
+      <div>
+        <div class="temperature"> High  <span id="tomorrow-hi">${Math.round(
+          forecast.main.temp_max
+        )} °C </span> | Low <span id="tomorrow-lo" >${Math.round(
+    forecast.main.temp_min
+  )} °C</span>
+        </div>
+               Humidity: ${forecast.main.humidity} % | Wind: ${Math.round(
+    response.data.list[0].wind.speed
+  )} m/s
+      </div>
+  </li>
+    `;
 }
 
 // end of forecast
@@ -137,10 +147,14 @@ function convertToFahrenheit(event) {
   let getCurrentTemp = document.querySelector(`#current-temp`);
   let getTomorrowHi = document.querySelector(`#tomorrow-hi`);
   let getTomorrowLo = document.querySelector(`#tomorrow-lo`);
+  let getCurrentHi = document.querySelector(`#current-high`);
+  let getCurrentLo = document.querySelector(`#current-low`);
 
   getCurrentTemp.innerHTML = fahrenheitFormula(getCurrentTemp.innerHTML);
   getTomorrowHi.innerHTML = `${fahrenheitFormula(getTomorrowHi.innerHTML)}°F`;
   getTomorrowLo.innerHTML = `${fahrenheitFormula(getTomorrowLo.innerHTML)} °F`;
+  getCurrentHi.innerHTML = `${fahrenheitFormula(getCurrentHi.innerHTML)}°F`;
+  getCurrentLo.innerHTML = `${fahrenheitFormula(getCurrentLo.innerHTML)}°F`;
   tempType = `fahrenheit`;
 }
 
@@ -156,10 +170,14 @@ function convertToCelsius(event) {
   let getCurrentTemp = document.querySelector(`#current-temp`);
   let getTomorrowHi = document.querySelector(`#tomorrow-hi`);
   let getTomorrowLo = document.querySelector(`#tomorrow-lo`);
+  let getCurrentHi = document.querySelector(`#current-high`);
+  let getCurrentLo = document.querySelector(`#current-low`);
 
   getCurrentTemp.innerHTML = celsiusFormula(getCurrentTemp.innerHTML);
   getTomorrowHi.innerHTML = `${celsiusFormula(getTomorrowHi.innerHTML)} °C`;
   getTomorrowLo.innerHTML = `${celsiusFormula(getTomorrowLo.innerHTML)} °C`;
+  getCurrentHi.innerHTML = `${celsiusFormula(getCurrentHi.innerHTML)}°C`;
+  getCurrentLo.innerHTML = `${celsiusFormula(getCurrentLo.innerHTML)}°C`;
   tempType = `celsius`;
 }
 
