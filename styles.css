@@ -1,18 +1,17 @@
 .container {
-  border: green 2px solid;
   display: block;
-  background-image: linear-gradient(to right, #92fe9d 0%, #00c9ff 100%);
+  background-image: linear-gradient(-225deg, #2CD8D5 0%, #C5C1FF 56%, #FFBAC3 100%);
   border-radius: 35px;
   position: relative;
   box-sizing: border-box;
   max-width: 450px;
-}
+  }
 
 h1 {
   text-transform: capitalize;
   font-size: 75px;
   padding: 30px 30px;
-}
+  }
 
 #current-temp{
   font-size: 70px;

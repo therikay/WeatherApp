@@ -108,14 +108,11 @@ function convertToFahrenheit(event) {
 
   let getCurrentTemp = document.querySelector(`#current-temp`);
   let getTomorrowHi = document.querySelector(`#tomorrow-hi`);
-
-  //let fahrenheit =
-  //Math.round((parseInt(getCurrentTemp.innerHTML) * 9) / 5) + 32;
+  let getTomorrowLo = document.querySelector(`#tomorrow-lo`);
 
   getCurrentTemp.innerHTML = fahrenheitFormula(getCurrentTemp.innerHTML);
-
-  getTomorrowHi.innerHTML = fahrenheitFormula(getTomorrowHi.innerHTML);
-
+  getTomorrowHi.innerHTML = `${fahrenheitFormula(getTomorrowHi.innerHTML)}°F`;
+  getTomorrowLo.innerHTML = `${fahrenheitFormula(getTomorrowLo.innerHTML)} °F`;
   tempType = `fahrenheit`;
 }
 
@@ -133,8 +130,8 @@ function convertToCelsius(event) {
   let getTomorrowLo = document.querySelector(`#tomorrow-lo`);
 
   getCurrentTemp.innerHTML = celsiusFormula(getCurrentTemp.innerHTML);
-  getTomorrowHi.innerHTML = celsiusFormula(getTomorrowHi.innerHTML);
-  getTomorrowLo.innerHTML = celsiusFormula(getTomorrowLo.innerHTML);
+  getTomorrowHi.innerHTML = `${celsiusFormula(getTomorrowHi.innerHTML)} °C`;
+  getTomorrowLo.innerHTML = `${celsiusFormula(getTomorrowLo.innerHTML)} °C`;
   tempType = `celsius`;
 }
 
