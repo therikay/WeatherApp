@@ -81,7 +81,7 @@ function getWeather(response) {
   let feelsLike = document.querySelector(`#weather-description`);
   let iconElement = document.querySelector(`#weather-icon-now`);
 
-  showTemp.innerHTML = `${currentTemp} °C`;
+  showTemp.innerHTML = `${currentTemp}`;
   city.innerHTML = `${response.data.name}`;
   tempMax.innerHTML = `High ${Math.round(response.data.main.temp_max)} °C`;
   tempMin.innerHTML = ` Low ${Math.round(response.data.main.temp_min)} °C`;
@@ -92,10 +92,51 @@ function getWeather(response) {
   );
 }
 
+let tempType = `celsius`;
+function fahrenheitFormula(celsius) {
+  return Math.round((parseInt(celsius) * 9) / 5) + 32;
+}
+function celsiusFormula(fahrenheit) {
+  return Math.round(((parseInt(fahrenheit) - 32) * 5) / 9);
+}
+
 function convertToFahrenheit(event) {
   event.preventDefault();
-  alert("hello!");
+  if (tempType == `fahrenheit`) {
+    return;
+  }
+
+  let getCurrentTemp = document.querySelector(`#current-temp`);
+  let getTomorrowHi = document.querySelector(`#tomorrow-hi`);
+
+  //let fahrenheit =
+  //Math.round((parseInt(getCurrentTemp.innerHTML) * 9) / 5) + 32;
+
+  getCurrentTemp.innerHTML = fahrenheitFormula(getCurrentTemp.innerHTML);
+
+  getTomorrowHi.innerHTML = fahrenheitFormula(getTomorrowHi.innerHTML);
+
+  tempType = `fahrenheit`;
 }
 
 let fahTemp = document.querySelector(`#fahrenheit`);
-fahTemp.addEventListener(`click, convertToFah`);
+fahTemp.addEventListener(`click`, convertToFahrenheit);
+
+function convertToCelsius(event) {
+  event.preventDefault();
+  if (tempType == `celsius`) {
+    return;
+  }
+
+  let getCurrentTemp = document.querySelector(`#current-temp`);
+  let getTomorrowHi = document.querySelector(`#tomorrow-hi`);
+  let getTomorrowLo = document.querySelector(`#tomorrow-lo`);
+
+  getCurrentTemp.innerHTML = celsiusFormula(getCurrentTemp.innerHTML);
+  getTomorrowHi.innerHTML = celsiusFormula(getTomorrowHi.innerHTML);
+  getTomorrowLo.innerHTML = celsiusFormula(getTomorrowLo.innerHTML);
+  tempType = `celsius`;
+}
+
+let celsTemp = document.querySelector(`#celsius`);
+celsTemp.addEventListener(`click`, convertToCelsius);
