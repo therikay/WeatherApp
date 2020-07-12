@@ -29,20 +29,28 @@ let months = [
   `December`,
 ];
 
-function formatTime(timestamp) {
-  let month = months[now.getMonth()];
-  let monthDay = now.getDate();
-  let nowDate = document.querySelector("#current-date");
-  let hour = now.getHours();
-  let minute = now.getMinutes();
+let month = months[now.getMonth()];
+let monthDay = now.getDate();
+let nowDate = document.querySelector("#current-date");
+let hour = now.getHours();
+let minute = now.getMinutes();
+if (minute < 10) {
+  minute = `0${minute} `;
+}
+let nowTime = document.querySelector("#current-time");
+let formatDate = `${weekDay}, ${month} ${monthDay}`;
+let formatTime = `${hour}:${minute}`;
+nowTime.innerHTML = `${formatTime}`;
+nowDate.innerHTML = `${formatDate}`;
+
+function formatHours(timestamp) {
+  let date = new Date(timestamp);
+  let hour = date.getHours();
+  let minute = date.getMinutes();
   if (minute < 10) {
-    "0" + minute;
+    minute = `0${minute} `;
   }
-  let nowTime = document.querySelector("#current-time");
-  let formatDate = `${weekDay}, ${month} ${monthDay}`;
-  let formatHours = `${hour}:${minute}`;
-  nowTime.innerHTML = `${formatHours}`;
-  nowDate.innerHTML = `${formatDate}`;
+  return `${hour}:${minute}`;
 }
 
 // add a required field function here
@@ -102,7 +110,6 @@ function getWeather(response) {
 
 function getForecast(response) {
   let forecastElement = document.querySelector(`#forecast`);
-  console.log(response);
   let forecast = response.data.list[0];
   forecastElement.innerHTML = `
   <li class="media" id="forecast-element">
@@ -111,7 +118,7 @@ function getForecast(response) {
     }@2x.png" alt = "#" ></i>
     <div class="media-body">
       <h5 class="mt-0 mb-1">
-      ${formatTime(forecast.dt * 1000)}
+     ${formatHours(forecast.dt * 1000)}
       </h5>
       <div>
         <div class="temperature"> High  <span id="tomorrow-hi">${Math.round(
@@ -123,6 +130,32 @@ function getForecast(response) {
                Humidity: ${forecast.main.humidity} % | Wind: ${Math.round(
     response.data.list[0].wind.speed
   )} m/s
+      </div>
+  </li>
+    `;
+
+  forecast = response.data.list[1];
+  forecastElement.innerHTML =
+    forecastElement.innerHTML +
+    `
+  <li class="media" id="forecast-element">
+    <img src = "https://openweathermap.org/img/wn/${
+      forecast.weather[1].icon
+    }@2x.png" alt = "#" ></i>
+    <div class="media-body">
+      <h5 class="mt-0 mb-1">
+     ${formatHours(response.data.list[1].dt * 1000)}
+      </h5>
+      <div>
+        <div class="temperature"> High  <span id="tomorrow-hi">${Math.round(
+          forecast.main.temp_max
+        )} °C </span> | Low <span id="tomorrow-lo" >${Math.round(
+      forecast.main.temp_min
+    )} °C</span>
+        </div>
+               Humidity: ${forecast.main.humidity} % | Wind: ${Math.round(
+      response.data.list[1].wind.speed
+    )} m/s
       </div>
   </li>
     `;
