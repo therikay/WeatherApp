@@ -48,9 +48,13 @@ function searchCity(event) {
   let city = document.querySelector("#city-input");
   let apiKey = `1544e67f9b685a7d927f11b2e914bf96`;
   let cityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${apiKey}&units=metric`;
+
   let displayCity = document.querySelector(`#city`);
   displayCity.innerHTML = `${city.value}`;
   axios.get(cityUrl).then(getWeather);
+
+  let cityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${apiKey}&units=metric`;
+  axios.get(cityURL).then(getForecast);
 }
 
 let searchCityButton = document.querySelector(".form-group");
@@ -63,6 +67,7 @@ function locateMe(position) {
   let geoUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
 
   axios.get(geoUrl).then(getWeather);
+  axios.get(geoUrl).then(getForecast);
 }
 
 function fetchLocation() {
@@ -91,6 +96,29 @@ function getWeather(response) {
     `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
 }
+
+//forecast
+
+function getForecast(response) {
+  let showTemp = document.querySelector(`#current-temp`);
+  let currentTemp = Math.round(response.data.main.temp);
+  let tempMax = document.querySelector(`#today-high`);
+  let tempMin = document.querySelector(`#today-low`);
+  let feelsLike = document.querySelector(`#weather-description`);
+  let iconElement = document.querySelector(`#weather-icon-now`);
+
+  showTemp.innerHTML = `${currentTemp}`;
+  city.innerHTML = `${response.data.name}`;
+  tempMax.innerHTML = `High ${Math.round(response.data.main.temp_max)} °C`;
+  tempMin.innerHTML = ` Low ${Math.round(response.data.main.temp_min)} °C`;
+  feelsLike.innerHTML = `${response.data.weather[0].description}`;
+  iconElement.setAttribute(
+    "src",
+    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+}
+
+// end of forecast
 
 let tempType = `celsius`;
 function fahrenheitFormula(celsius) {
