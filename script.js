@@ -139,7 +139,7 @@ function getForecast(response) {
       </div>
   </li>
     `;
-  //replicate for array item 1-4 and feed
+  //replicate for array item 1-4
 }
 
 // end of forecast
