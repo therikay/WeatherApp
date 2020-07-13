@@ -94,6 +94,7 @@ let button = document.querySelector(`#geolocation`);
 button.addEventListener(`click`, fetchLocation);
 //feed timestamp to current weather with location
 function getWeather(response) {
+  console.log(response);
   let showTemp = document.querySelector(`#current-temp`);
   let currentTemp = Math.round(response.data.main.temp);
   let tempMax = document.querySelector(`#current-high`);
@@ -116,8 +117,14 @@ function getWeather(response) {
 
 function getForecast(response) {
   let forecastElement = document.querySelector(`#forecast`);
-  let forecast = response.data.list[0];
-  forecastElement.innerHTML = `
+  let forecast = null;
+  forecastElement.innerHTML = null;
+  for (let index = 0; index < 4; index++) {
+    forecast = response.data.list[index];
+
+    forecastElement.innerHTML =
+      forecastElement.innerHTML +
+      `
   <li class="media" id="forecast-element">
     <img src = "https://openweathermap.org/img/wn/${
       forecast.weather[0].icon
@@ -130,15 +137,17 @@ function getForecast(response) {
         <div class="temperature"> High  <span id="tomorrow-hi">${Math.round(
           forecast.main.temp_max
         )} °C </span> | Low <span id="tomorrow-lo" >${Math.round(
-    forecast.main.temp_min
-  )} °C</span>
+        forecast.main.temp_min
+      )} °C</span>
         </div>
                Humidity: ${forecast.main.humidity} % | Wind: ${Math.round(
-    response.data.list[0].wind.speed
-  )} m/s
+        response.data.list[0].wind.speed
+      )} m/s
       </div>
   </li>
     `;
+  }
+
   //replicate for array item 1-4
 }
 
