@@ -55,3 +55,7 @@ fa {
 h1 .units{
   font-size: 25px;
 }
+
+#weather-description{
+  text-transform: capitalize;
+}
