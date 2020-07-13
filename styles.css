@@ -1,24 +1,28 @@
 .container {
   display: block;
-  background-image: linear-gradient(-225deg, #2CD8D5 0%, #C5C1FF 56%, #FFBAC3 100%);
+  background-image: linear-gradient(
+    -225deg,
+    #2cd8d5 0%,
+    #c5c1ff 56%,
+    #ffbac3 100%
+  );
   border-radius: 35px;
   position: relative;
   box-sizing: border-box;
   max-width: 450px;
   color: #5d4b94;
-  }
+}
 
 h1 {
   text-transform: capitalize;
-  font-size: 75px;
+  font-size: 80px;
   padding: 30px 30px;
-  }
+}
 
-#current-temp{
-  font-size: 70px;
+#current-temp {
+  font-size: 95px;
   padding: 20px 20px 0px 0px;
- 
-
+  float: left;
 }
 
 #weather-icon-now {
@@ -27,11 +31,6 @@ h1 {
   padding: 30px 25px 10px 25px;
 }
 
-.fas,
-fa {
-  font-size: 45px;
-  padding: 20px 10px;                                                                                                                                                                                                                                                                                                                                                  1  
-}
 /*  fix this above */
 
 .signature {
@@ -39,23 +38,16 @@ fa {
   text-align: center;
 }
 
-#unit-convert {
-  font-size: larger;
-  text-align: center;
-  margin: 0 auto;
-  color: red;
-  padding-left: 20px;
-  font-weight: bold;
+.hi-low-temp-now {
+  padding: 150px 0 0 0;
 }
 
-.hi-low-temp-now{
- padding: 30px 0 0 0;
-}
-
-h1 .units{
-  font-size: 25px;
-}
-
-#weather-description{
+#weather-description {
   text-transform: capitalize;
+}
+
+.units {
+  margin-top: 35px;
+  float: right;
+  margin-right: 20px;
 }
