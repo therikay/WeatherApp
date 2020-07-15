@@ -94,7 +94,6 @@ let button = document.querySelector(`#geolocation`);
 button.addEventListener(`click`, fetchLocation);
 //feed timestamp to current weather with location
 function getWeather(response) {
-  console.log(response);
   let showTemp = document.querySelector(`#current-temp`);
   let currentTemp = Math.round(response.data.main.temp);
   let tempMax = document.querySelector(`#current-high`);
@@ -149,11 +148,7 @@ function getForecast(response) {
   </li>
     `;
   }
-
-  //replicate for array item 1-4
 }
-
-// end of forecast
 
 let tempType = `celsius`;
 function fahrenheitFormula(celsius) {
@@ -170,17 +165,22 @@ function convertToFahrenheit(event) {
   }
 
   let getCurrentTemp = document.querySelector(`#current-temp`);
-  let getForecastHi = document.querySelector(`.forecast-hi`);
-  let getForecastLo = document.querySelector(`.forecast-lo`);
   let getCurrentHi = document.querySelector(`#current-high`);
   let getCurrentLo = document.querySelector(`#current-low`);
 
   getCurrentTemp.innerHTML = fahrenheitFormula(getCurrentTemp.innerHTML);
-  getForecastHi.innerHTML = `${fahrenheitFormula(getForecastHi.innerHTML)}°F`;
-  getForecastLo.innerHTML = `${fahrenheitFormula(getForecastLo.innerHTML)} °F`;
   getCurrentHi.innerHTML = `${fahrenheitFormula(getCurrentHi.innerHTML)}°F`;
   getCurrentLo.innerHTML = `${fahrenheitFormula(getCurrentLo.innerHTML)}°F`;
   tempType = `fahrenheit`;
+
+  let forecastHighItems = document.querySelectorAll(".forecast-hi");
+  forecastHighItems.forEach(function (item) {
+    item.innerHTML = `${fahrenheitFormula(item.innerHTML)}°F`;
+  });
+  let forecastLowItems = document.querySelectorAll(".forecast-lo");
+  forecastLowItems.forEach(function (item) {
+    item.innerHTML = `${fahrenheitFormula(item.innerHTML)}°F`;
+  });
 }
 
 let fahTemp = document.querySelector(`#fahrenheit`);
@@ -193,17 +193,22 @@ function convertToCelsius(event) {
   }
 
   let getCurrentTemp = document.querySelector(`#current-temp`);
-  let getForecastHi = document.querySelector(`.forecast-hi`);
-  let getForecastLo = document.querySelector(`.forecast-lo`);
   let getCurrentHi = document.querySelector(`#current-high`);
   let getCurrentLo = document.querySelector(`#current-low`);
 
   getCurrentTemp.innerHTML = celsiusFormula(getCurrentTemp.innerHTML);
-  getForecastHi.innerHTML = `${celsiusFormula(getForecastHi.innerHTML)} °C`;
-  getForecastLo.innerHTML = `${celsiusFormula(getForecastLo.innerHTML)} °C`;
   getCurrentHi.innerHTML = `${celsiusFormula(getCurrentHi.innerHTML)}°C`;
   getCurrentLo.innerHTML = `${celsiusFormula(getCurrentLo.innerHTML)}°C`;
   tempType = `celsius`;
+
+  let forecastHighItems = document.querySelectorAll(".forecast-hi");
+  forecastHighItems.forEach(function (item) {
+    item.innerHTML = `${celsiusFormula(item.innerHTML)}°C`;
+  });
+  let forecastLowItems = document.querySelectorAll(".forecast-lo");
+  forecastLowItems.forEach(function (item) {
+    item.innerHTML = `${celsiusFormula(item.innerHTML)}°C`;
+  });
 }
 
 let celsTemp = document.querySelector(`#celsius`);
